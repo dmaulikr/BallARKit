@@ -15,6 +15,8 @@
 		502D570A1F325005000D68B3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 502D57081F325005000D68B3 /* LaunchScreen.storyboard */; };
 		502D57151F325005000D68B3 /* BallARKitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 502D57141F325005000D68B3 /* BallARKitTests.swift */; };
 		502D57201F325005000D68B3 /* BallARKitUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 502D571F1F325005000D68B3 /* BallARKitUITests.swift */; };
+		502D572E1F3255B2000D68B3 /* ViewController+ARKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 502D572D1F3255B2000D68B3 /* ViewController+ARKit.swift */; };
+		502D57301F32560A000D68B3 /* Plane.swift in Sources */ = {isa = PBXBuildFile; fileRef = 502D572F1F32560A000D68B3 /* Plane.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +51,8 @@
 		502D571B1F325005000D68B3 /* BallARKitUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BallARKitUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		502D571F1F325005000D68B3 /* BallARKitUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BallARKitUITests.swift; sourceTree = "<group>"; };
 		502D57211F325005000D68B3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		502D572D1F3255B2000D68B3 /* ViewController+ARKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "ViewController+ARKit.swift"; path = "../../CubeARKit/CubeARKit/ViewController+ARKit.swift"; sourceTree = "<group>"; };
+		502D572F1F32560A000D68B3 /* Plane.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Plane.swift; path = ../../CubeARKit/CubeARKit/Plane.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -102,9 +106,11 @@
 				502D56FD1F325005000D68B3 /* AppDelegate.swift */,
 				502D56FF1F325005000D68B3 /* art.scnassets */,
 				502D57011F325005000D68B3 /* ViewController.swift */,
+				502D572F1F32560A000D68B3 /* Plane.swift */,
 				502D57031F325005000D68B3 /* Main.storyboard */,
 				502D57061F325005000D68B3 /* Assets.xcassets */,
 				502D57081F325005000D68B3 /* LaunchScreen.storyboard */,
+				502D572D1F3255B2000D68B3 /* ViewController+ARKit.swift */,
 				502D570B1F325005000D68B3 /* Info.plist */,
 			);
 			path = BallARKit;
@@ -262,6 +268,8 @@
 			files = (
 				502D57021F325005000D68B3 /* ViewController.swift in Sources */,
 				502D56FE1F325005000D68B3 /* AppDelegate.swift in Sources */,
+				502D57301F32560A000D68B3 /* Plane.swift in Sources */,
+				502D572E1F3255B2000D68B3 /* ViewController+ARKit.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
