@@ -13,21 +13,11 @@ import ARKit
 class ViewController: UIViewController, ARSCNViewDelegate {
 
     @IBOutlet var sceneView: ARSCNView!
-    
+    var planes = [UUID:Plane]()
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        // Set the view's delegate
-        sceneView.delegate = self
-        
-        // Show statistics such as fps and timing information
-        sceneView.showsStatistics = true
-        
-        // Create a new scene
-        let scene = SCNScene(named: "art.scnassets/ship.scn")!
-        
-        // Set the scene to the view
-        sceneView.scene = scene
+        self.initScene()
+        self.debugVisualization()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -35,7 +25,7 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         
         // Create a session configuration
         let configuration = ARWorldTrackingSessionConfiguration()
-        
+        configuration.planeDetection = .horizontal
         // Run the view's session
         sceneView.session.run(configuration)
     }
@@ -47,21 +37,44 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         sceneView.session.pause()
     }
     
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Release any cached data, images, etc that aren't in use.
+    func renderer(_ renderer: SCNSceneRenderer, didAdd node: SCNNode, for anchor: ARAnchor) {
+        if !(anchor is ARPlaneAnchor) {
+            return
+        }
+        let plane = Plane(anchor: anchor as! ARPlaneAnchor)
+        self.planes.updateValue(plane, forKey: anchor.identifier)
+        node.addChildNode(plane)
     }
-
-    // MARK: - ARSCNViewDelegate
     
-/*
-    // Override to create and configure nodes for anchors added to the view's session.
-    func renderer(_ renderer: SCNSceneRenderer, nodeFor anchor: ARAnchor) -> SCNNode? {
-        let node = SCNNode()
-     
-        return node
+    func renderer(_ renderer: SCNSceneRenderer, didUpdate node: SCNNode, for anchor: ARAnchor) {
+        guard let plane: Plane = self.planes[anchor.identifier] else {
+            return
+        }
+        
+        plane.update(anchor: anchor as! ARPlaneAnchor)
     }
-*/
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        guard let touch = touches.first else {
+            return
+        }
+        let result = sceneView.hitTest(touch.location(in: sceneView), types: [.featurePoint])
+        guard let hitResult = result.last else {
+            return
+        }
+        let hitTransform = hitResult.worldTransform
+        let hitVector = SCNVector3Make(hitTransform.columns.3.x, hitTransform.columns.3.y, hitTransform.columns.3.z)
+        createBall(position: hitVector)
+        
+    }
+    
+    func createBall(position: SCNVector3){
+        let ballShape = SCNSphere(radius: 0.01)
+        let ballNode = SCNNode(geometry: ballShape)
+        ballNode.position = position
+        sceneView.scene.rootNode.addChildNode(ballNode)
+        
+    }
     
     func session(_ session: ARSession, didFailWithError error: Error) {
         // Present an error message to the user
